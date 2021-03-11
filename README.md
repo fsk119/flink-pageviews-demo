@@ -18,11 +18,10 @@ MySQL driver jar： https://repo.maven.apache.org/maven2/mysql/mysql-connector-j
 
 ## 测试数据准备
 
-我们首先用命令`docker-compose up -d`启动docker。我们可以利用以下命令从 Terminal 进入 Mysql 容器之中，并插入相应的数据。
+在正式开始之前，请先下载好上述所需要的文件。我们首先用命令`docker-compose up -d`启动docker。我们可以利用以下命令从 Terminal 进入 Mysql 容器之中，并插入相应的数据。
 
 ```
-docker exec -it flink-pageviews-demo_debz-mysql_1 bash
-mysql -uroot -p123456
+docker exec -it  mysql bash -c 'mysql -uroot -p123456'
 ```
 在 Mysql 中执行以下命令：
 ```
@@ -111,7 +110,7 @@ FROM pageviews
 LEFT JOIN users ON pageviews.user_id = users.user_id;
 ```
 
-当作业跑起来后，我们可以另起一个 Terminal 利用命令`docker exec -it flink-pageviews-demo_kafka_1 bash` 进入kafka所在的容器之中。
+当作业跑起来后，我们可以另起一个 Terminal 利用命令`docker exec -it kafka bash` 进入kafka所在的容器之中。
 Kafka的安装路径在于`/opt/kafka`,利用以下命令，我们可以打印topic内的数据`./kafka-console-consumer.sh --bootstrap-server kafka:9094 --topic "enriched_pageviews" --from-beginning --property print.key=true`
 
 ```
